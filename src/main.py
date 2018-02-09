@@ -38,7 +38,6 @@ class App(QMainWindow):
         self.errorLabel.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Maximum)
 
         mainMenu = self.menuBar()
-        mainMenu.setNativeMenuBar(False) #For MacOS
         fileMenu = mainMenu.addMenu('File')
         helpMenu = mainMenu.addMenu('Help')
 
