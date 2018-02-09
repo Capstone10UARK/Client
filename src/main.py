@@ -38,7 +38,7 @@ class App(QMainWindow):
         self.errorLabel.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Maximum)
 
         mainMenu = self.menuBar()
-        fileMenu = mainMenu.addMenu('File')
+        fileMenu = mainMenu.addMenu('Options')
         helpMenu = mainMenu.addMenu('Help')
 
         uploadVideoAction = QAction('Load Video', self)
