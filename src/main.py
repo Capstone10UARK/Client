@@ -1,10 +1,10 @@
 import sys
 from PyQt5.QtWidgets import (QMainWindow, QPushButton, QWidget, QAction,
     QApplication, QFileDialog, QHBoxLayout, QLabel, QSizePolicy, QSlider,
-    QStyle, QVBoxLayout)
+    QStyle, QVBoxLayout, QRubberBand)
 from PyQt5.QtMultimedia import QMediaContent, QMediaPlayer
 from PyQt5.QtMultimediaWidgets import QVideoWidget
-from PyQt5.QtCore import QDir, Qt, QUrl
+from PyQt5.QtCore import QDir, Qt, QUrl, QRect, QSize
 from PyQt5.QtGui import QIcon
 
 class App(QMainWindow):
@@ -17,6 +17,7 @@ class App(QMainWindow):
         self.width = 800
         self.height = 600
         self.initUI()
+        self.rubberBand = None
 
     def initUI(self):
         self.setWindowTitle(self.title)
@@ -114,6 +115,18 @@ class App(QMainWindow):
         self.playButton.setEnabled(False)
         self.errorLabel.setText('ERROR: ' + self.mediaPlayer.errorString() + '.')
 
+    def mousePressEvent(self, event):
+        self.origin = event.pos()
+        if not self.rubberBand:
+            self.rubberBand = QRubberBand(QRubberBand.Rectangle, self)
+        self.rubberBand.setGeometry(QRect(self.origin, QSize()))
+        self.rubberBand.show()
+
+    def mouseMoveEvent(self, event):
+        self.rubberBand.setGeometry(QRect(self.origin, event.pos()).normalized())
+
+    def mouseReleaseEvent(self, event):
+        self.rubberBand.hide()
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
