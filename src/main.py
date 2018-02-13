@@ -1,11 +1,12 @@
 import sys
 from PyQt5.QtWidgets import (QMainWindow, QPushButton, QWidget, QAction,
-    QApplication, QFileDialog, QHBoxLayout, QLabel, QSizePolicy, QSlider,
-    QStyle, QVBoxLayout)
+                             QApplication, QFileDialog, QHBoxLayout, QLabel, QSizePolicy, QSlider,
+                             QStyle, QVBoxLayout)
 from PyQt5.QtMultimedia import QMediaContent, QMediaPlayer
 from PyQt5.QtMultimediaWidgets import QVideoWidget
 from PyQt5.QtCore import QDir, Qt, QUrl
-from PyQt5.QtGui import QIcon
+from qrangeslider import QRangeSlider
+
 
 class App(QMainWindow):
 
@@ -26,7 +27,7 @@ class App(QMainWindow):
         videoWidget = QVideoWidget()
 
         self.playButton = QPushButton()
-        self.playButton .setEnabled(False)
+        self.playButton.setEnabled(False)
         self.playButton.setIcon(self.style().standardIcon(QStyle.SP_MediaPlay))
         self.playButton.clicked.connect(self.play)
 
@@ -48,6 +49,9 @@ class App(QMainWindow):
         analyzeAreaAction = QAction('Analyze Area', self)
         analyzeAreaAction.setStatusTip('Analyze Area')
 
+        clipVideoAction = QAction('Clip Video', self)
+        clipVideoAction.setStatusTip('Clip Video')
+
         exitAction = QAction('Exit', self)
         exitAction.setStatusTip('Exit Program')
         exitAction.triggered.connect(self.close)
@@ -55,6 +59,8 @@ class App(QMainWindow):
         fileMenu.addAction(uploadVideoAction)
         fileMenu.addSeparator()
         fileMenu.addAction(analyzeAreaAction)
+        fileMenu.addSeparator()
+        fileMenu.addAction(clipVideoAction)
         fileMenu.addSeparator()
         fileMenu.addAction(exitAction)
 
@@ -117,6 +123,8 @@ class App(QMainWindow):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
+    rs = QRangeSlider()
+    rs.show()
     ex = App()
     sys.exit(app.exec_())
-#test
+# test
