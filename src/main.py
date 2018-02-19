@@ -39,7 +39,7 @@ class App(QMainWindow):
         self.errorLabel.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Maximum)
 
         mainMenu = self.menuBar()
-        fileMenu = mainMenu.addMenu('Options')
+        fileMenu = mainMenu.addMenu('Action')
         helpMenu = mainMenu.addMenu('Help')
 
         uploadVideoAction = QAction('Load Video', self)
@@ -89,6 +89,8 @@ class App(QMainWindow):
             self.mediaPlayer.setMedia(QMediaContent(QUrl.fromLocalFile(fileName)))
             self.playButton.setEnabled(True)
             self.errorLabel.setText('')
+            self.mediaPlayer.play()
+            self.mediaPlayer.pause()
 
     def play(self):
         if self.mediaPlayer.state() == QMediaPlayer.PlayingState:
