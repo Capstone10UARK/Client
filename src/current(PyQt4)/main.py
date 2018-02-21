@@ -36,7 +36,7 @@ class MyMainUi(QMainWindow, Ui_MainWindow):
             self.stopButton.setEnabled(False)
             messageBox = QMessageBox()
             messageBox.critical(None, 'ERROR', self.mediaObject.errorString() + '.')
-        if self.mediaObject.state() == Phonon.PlayingState:
+        elif self.mediaObject.state() == Phonon.PlayingState:
             self.play_pauseButton.setIcon(self.style().standardIcon(QStyle.SP_MediaPause))
             self.play_pauseButton.setToolTip('Pause')
         else:
@@ -54,6 +54,7 @@ class MyMainUi(QMainWindow, Ui_MainWindow):
             self.mediaObject.pause()
 
     def analyzeArea(self):
+        # TODO.
         print('')
 
     def exit(self):
