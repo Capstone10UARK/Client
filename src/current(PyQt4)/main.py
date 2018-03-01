@@ -97,9 +97,9 @@ class MyMainUi(QMainWindow, Ui_MainWindow):
         self.mediaObject.seek(value)
 
     def analyze(self):
-        # TODO: fix ffmpeg_extract_subclip
-        # currently produces subclip that is unplayable
-        ffmpeg_extract_subclip(self.fileName, self.rangeSlider.low(), self.rangeSlider.high(), targetname="test.avi")
+        low = float(self.rangeSlider.low()) / float(1000)
+        high = float(self.rangeSlider.high()) / float(1000)
+        ffmpeg_extract_subclip(self.fileName, low, high, targetname="test.avi")
         print("analyze")
 
     def exit(self):
@@ -117,6 +117,7 @@ class MyMainUi(QMainWindow, Ui_MainWindow):
 
     def stop(self):
         self.mediaObject.stop()
+
 
 if __name__ == "__main__":
     app = QApplication([])
