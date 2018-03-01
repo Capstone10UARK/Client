@@ -114,4 +114,4 @@ class Ui_MainWindow(object):
         self.actionAnalyze_Area.setText(_translate("MainWindow", "Analyze Area", None))
 
 from PyQt4 import phonon
-import resources_rc
+#import resources_rc
