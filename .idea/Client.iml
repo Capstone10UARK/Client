@@ -3,9 +3,15 @@
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
 <<<<<<< HEAD
+<<<<<<< HEAD
       <sourceFolder url="file://$MODULE_DIR$/src/current(PyQt4)" isTestSource="false" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.4 virtualenv at C:\Users\Ian\PycharmProjects\Capstone\venv" jdkType="Python SDK" />
+=======
+      <excludeFolder url="file://$MODULE_DIR$/venv" />
+    </content>
+    <orderEntry type="jdk" jdkName="Python 3.4 (Client)" jdkType="Python SDK" />
+>>>>>>> f0b1c53b1ac45e7a1e34e5fac582d56b1a2a655d
 =======
       <excludeFolder url="file://$MODULE_DIR$/venv" />
     </content>

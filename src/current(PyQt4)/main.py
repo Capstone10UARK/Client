@@ -5,6 +5,7 @@ from PyQt4 import QtCore
 from my_ui import Ui_MainWindow
 from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
 
+
 class MyMainUi(QMainWindow, Ui_MainWindow, QLabel):
 
     def __init__(self, parent=None):
@@ -144,7 +145,7 @@ class MyMainUi(QMainWindow, Ui_MainWindow, QLabel):
 
     @staticmethod
     def exit():
-        app.exit(self)
+        app.exit()
 
 
 if __name__ == "__main__":
