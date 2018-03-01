@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
 <<<<<<< HEAD
+<<<<<<< HEAD
   <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.6 (venv1)" project-jdk-type="Python SDK" />
 =======
   <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.4 virtualenv at C:\Users\Ian\PycharmProjects\Capstone\venv" project-jdk-type="Python SDK" />
 >>>>>>> Ian
+=======
+  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.4 (Client)" project-jdk-type="Python SDK" />
+>>>>>>> f0b1c53b1ac45e7a1e34e5fac582d56b1a2a655d
 </project>

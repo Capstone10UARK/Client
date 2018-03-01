@@ -1,13 +1,17 @@
 from PyQt4.QtGui import *
+from PyQt4.QtCore import QPoint, QRect, QSize, Qt
 from PyQt4.phonon import Phonon
 from PyQt4 import QtCore
 from my_ui import Ui_MainWindow
 from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
 
-class MyMainUi(QMainWindow, Ui_MainWindow):
+class MyMainUi(QMainWindow, Ui_MainWindow, QLabel):
 
     def __init__(self, parent=None):
         super(MyMainUi, self).__init__(parent)
+        QLabel.__init__(self, parent)
+        self.rubberBand = QRubberBand(QRubberBand.Rectangle, self)
+        self.origin = QPoint()
 
         # Setup UI.
         self.setupUi(self)
@@ -33,6 +37,8 @@ class MyMainUi(QMainWindow, Ui_MainWindow):
         self.play_pauseButton.clicked.connect(self.playPause)
         self.stopButton.clicked.connect(self.stop)
         self.analyzeButton.clicked.connect(self.analyze)
+
+        # Selection rubber band
 
     def stateChanged(self, newstate, oldstate):
         if self.mediaObject.state() == Phonon.ErrorState:
@@ -105,9 +111,23 @@ class MyMainUi(QMainWindow, Ui_MainWindow):
         target = self.fileName[:-4] + "[SUBCLIP].avi"
         ffmpeg_extract_subclip(self.fileName, beginning, end, targetname=target)
 
-    @staticmethod
-    def exit():
-        app.exit()
+    def mousePressEvent(self, event):
+    
+        if event.button() == Qt.LeftButton:
+        
+            self.origin = QPoint(event.pos())
+            self.rubberBand.setGeometry(QRect(self.origin, QSize()))
+            self.rubberBand.show()
+    
+    def mouseMoveEvent(self, event):
+    
+        if not self.origin.isNull():
+            self.rubberBand.setGeometry(QRect(self.origin, event.pos()).normalized())
+    
+    def mouseReleaseEvent(self, event):
+    
+        if event.button() == Qt.LeftButton:
+            self.rubberBand.hide()
 
     def playPause(self):
         if self.mediaObject.state() == Phonon.PlayingState:
@@ -121,6 +141,10 @@ class MyMainUi(QMainWindow, Ui_MainWindow):
 
     def stop(self):
         self.mediaObject.stop()
+
+    @staticmethod
+    def exit():
+        app.exit(self)
 
 
 if __name__ == "__main__":
