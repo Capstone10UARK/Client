@@ -1,6 +1,8 @@
 from PyQt4.QtGui import *
 from PyQt4.phonon import Phonon
+from PyQt4 import QtCore
 from my_ui import Ui_MainWindow
+from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
 
 class MyMainUi(QMainWindow, Ui_MainWindow):
 
@@ -13,6 +15,7 @@ class MyMainUi(QMainWindow, Ui_MainWindow):
         self.stopButton.setIcon(self.style().standardIcon(QStyle.SP_MediaStop))
 
         # Setup video widget.
+        self.fileName = None
         self.mediaObject = Phonon.MediaObject()
         self.videoWidget = self.videoPlayer.videoWidget()
         Phonon.createPath(self.mediaObject, self.videoWidget)
@@ -26,9 +29,10 @@ class MyMainUi(QMainWindow, Ui_MainWindow):
         self.actionAnalyze_Area.triggered.connect(self.analyzeArea)
         self.actionExit.triggered.connect(self.exit)
 
-        # Connect video buttons.
+        # Connect buttons.
         self.play_pauseButton.clicked.connect(self.playPause)
         self.stopButton.clicked.connect(self.stop)
+        self.analyzeButton.clicked.connect(self.analyze)
 
     def stateChanged(self, newstate, oldstate):
         if self.mediaObject.state() == Phonon.ErrorState:
@@ -52,12 +56,57 @@ class MyMainUi(QMainWindow, Ui_MainWindow):
             self.stopButton.setEnabled(True)
             self.mediaObject.play()
             self.mediaObject.pause()
+            self.fileName = file
 
     def analyzeArea(self):
-        # TODO.
+        # TODO
+        if self.rangeSlider.isVisible():
+            self.mediaObject.seek(0)
+            self.rangeSlider.hide()
+            self.analyzeButton.hide()
+            self.seekSlider.show()
+            self.play_pauseButton.show()
+            self.stopButton.show()
+        else:
+            self.rangeSliderSetup()
+            self.analyzeButton.show()
         print('')
 
-    def exit(self):
+    def rangeSliderSetup(self):
+        self.rangeSlider.setMinimum(0)
+        self.rangeSlider.setLow(0)
+
+        self.mediaObject.seek(0)
+
+        if self.mediaObject.totalTime() != 0:
+            self.rangeSlider.setMaximum(self.mediaObject.totalTime())
+            self.rangeSlider.setHigh(self.mediaObject.totalTime())
+        else:
+            self.rangeSlider.setMaximum(10000)
+            self.rangeSlider.setHigh(10000)
+
+        QtCore.QObject.connect(self.rangeSlider, QtCore.SIGNAL('sliderMoved(int)'), self.seekRangeSlider)
+
+        self.play_pauseButton.hide()
+        self.stopButton.hide()
+        self.seekSlider.hide()
+
+        self.rangeSlider.show()
+
+    def seekRangeSlider(self, value):
+        self.mediaObject.seek(value)
+
+    def analyze(self):
+        self.extractClip()
+
+    def extractClip(self):
+        beginning = float(self.rangeSlider.low()) / float(1000)
+        end = float(self.rangeSlider.high()) / float(1000)
+        target = self.fileName[:-4] + "[SUBCLIP].avi"
+        ffmpeg_extract_subclip(self.fileName, beginning, end, targetname=target)
+
+    @staticmethod
+    def exit():
         app.exit()
 
     def playPause(self):
@@ -72,6 +121,7 @@ class MyMainUi(QMainWindow, Ui_MainWindow):
 
     def stop(self):
         self.mediaObject.stop()
+
 
 if __name__ == "__main__":
     app = QApplication([])

@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Client.iml" filepath="$PROJECT_DIR$/.idea/Client.iml" />
-      <module fileurl="file://$USER_HOME$/Downloads/pyplayer-master/.idea/pyplayer-master.iml" filepath="$USER_HOME$/Downloads/pyplayer-master/.idea/pyplayer-master.iml" />
     </modules>
   </component>
 </project>

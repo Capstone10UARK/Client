@@ -6,7 +6,9 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-from PyQt4 import QtCore, QtGui
+from PyQt4 import QtCore, QtGui, Qt
+from PyQt4 import phonon
+from RangeSlider import RangeSlider
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -68,14 +70,28 @@ class Ui_MainWindow(object):
         self.seekSlider.setIconSize(QtCore.QSize(16, 16))
         self.seekSlider.setObjectName(_fromUtf8("seekSlider"))
         self.horizontalLayout_2.addWidget(self.seekSlider)
+        self.seekSlider.show()
+
+        # range slider
+        self.rangeSlider = RangeSlider(Qt.Qt.Horizontal)
+        self.rangeSlider.setTickPosition(QtGui.QSlider.TicksBelow)
+        self.rangeSlider.setTickInterval(1)
+        self.horizontalLayout_2.addWidget(self.rangeSlider)
+        self.rangeSlider.hide()
+
+        # analyze button
+        self.analyzeButton = QtGui.QPushButton("Analyze", self)
+        self.horizontalLayout_2.addWidget(self.analyzeButton)
+        self.analyzeButton.hide()
+
         self.verticalLayout.addLayout(self.horizontalLayout_2)
         self.verticalLayout_3.addLayout(self.verticalLayout)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 765, 21))
         self.menubar.setObjectName(_fromUtf8("menubar"))
-        self.menuFiel = QtGui.QMenu(self.menubar)
-        self.menuFiel.setObjectName(_fromUtf8("menuFiel"))
+        self.menuField = QtGui.QMenu(self.menubar)
+        self.menuField.setObjectName(_fromUtf8("menuField"))
         self.menuView = QtGui.QMenu(self.menubar)
         self.menuView.setObjectName(_fromUtf8("menuView"))
         MainWindow.setMenuBar(self.menubar)
@@ -90,12 +106,12 @@ class Ui_MainWindow(object):
         self.actionMy_playlist.setObjectName(_fromUtf8("actionMy_playlist"))
         self.actionAnalyze_Area = QtGui.QAction(MainWindow)
         self.actionAnalyze_Area.setObjectName(_fromUtf8("actionAnalyze_Area"))
-        self.menuFiel.addAction(self.actionLoad)
-        self.menuFiel.addSeparator()
-        self.menuFiel.addAction(self.actionAnalyze_Area)
-        self.menuFiel.addSeparator()
-        self.menuFiel.addAction(self.actionExit)
-        self.menubar.addAction(self.menuFiel.menuAction())
+        self.menuField.addAction(self.actionLoad)
+        self.menuField.addSeparator()
+        self.menuField.addAction(self.actionAnalyze_Area)
+        self.menuField.addSeparator()
+        self.menuField.addAction(self.actionExit)
+        self.menubar.addAction(self.menuField.menuAction())
         self.menubar.addAction(self.menuView.menuAction())
 
         self.retranslateUi(MainWindow)
@@ -106,12 +122,10 @@ class Ui_MainWindow(object):
         self.play_pauseButton.setToolTip(_translate("MainWindow", "Play", None))
         self.stopButton.setToolTip(_translate("MainWindow", "Stop", None))
         self.seekSlider.setToolTip(_translate("MainWindow", "Seek", None))
-        self.menuFiel.setTitle(_translate("MainWindow", "Action", None))
+        self.rangeSlider.setToolTip(_translate("MainWindow", "Range", None))
+        self.menuField.setTitle(_translate("MainWindow", "Action", None))
         self.menuView.setTitle(_translate("MainWindow", "Help", None))
         self.actionLoad.setText(_translate("MainWindow", "Load Video", None))
         self.actionExit.setText(_translate("MainWindow", "Exit", None))
         self.actionMy_playlist.setText(_translate("MainWindow", "My_playlist", None))
         self.actionAnalyze_Area.setText(_translate("MainWindow", "Analyze Area", None))
-
-from PyQt4 import phonon
-import resources_rc
