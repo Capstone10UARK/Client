@@ -12,9 +12,7 @@ class RangeSlider(QtGui.QSlider):
         exception of valueChanged
     """
 
-    def __init__(self, seekslider, *args):
-        self.seekSlider = seekslider
-
+    def __init__(self, *args):
         super(RangeSlider, self).__init__(*args)
 
         self._low = self.minimum()
@@ -40,9 +38,6 @@ class RangeSlider(QtGui.QSlider):
     def setHigh(self, high):
         self._high = high
         self.update()
-
-    def setMediaObject(self, media):
-        self.seekSlider.setMediaObject(media)
 
     def paintEvent(self, event):
         # based on http://qt.gitorious.org/qt/qt/blobs/master/src/gui/widgets/qslider.cpp

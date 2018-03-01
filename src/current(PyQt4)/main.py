@@ -4,6 +4,7 @@ from PyQt4 import QtCore
 from my_ui import Ui_MainWindow
 from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
 
+
 class MyMainUi(QMainWindow, Ui_MainWindow):
 
     def __init__(self, parent=None):
@@ -22,7 +23,7 @@ class MyMainUi(QMainWindow, Ui_MainWindow):
         self.mediaObject.stateChanged.connect(self.stateChanged)
 
         # Connect seek slider.
-        self.rangeSlider.seekSlider.setMediaObject(self.mediaObject)
+        self.seekSlider.setMediaObject(self.mediaObject)
 
         # Connect menu options (load, analyze, and exit).
         self.actionLoad.triggered.connect(self.loadVideo)
@@ -64,7 +65,7 @@ class MyMainUi(QMainWindow, Ui_MainWindow):
             self.mediaObject.seek(0)
             self.rangeSlider.hide()
             self.analyzeButton.hide()
-            self.rangeSlider.seekSlider.show()
+            self.seekSlider.show()
             self.play_pauseButton.show()
             self.stopButton.show()
         else:
@@ -89,7 +90,7 @@ class MyMainUi(QMainWindow, Ui_MainWindow):
 
         self.play_pauseButton.hide()
         self.stopButton.hide()
-        self.rangeSlider.seekSlider.hide()
+        self.seekSlider.hide()
 
         self.rangeSlider.show()
 
@@ -97,12 +98,16 @@ class MyMainUi(QMainWindow, Ui_MainWindow):
         self.mediaObject.seek(value)
 
     def analyze(self):
-        low = float(self.rangeSlider.low()) / float(1000)
-        high = float(self.rangeSlider.high()) / float(1000)
-        ffmpeg_extract_subclip(self.fileName, low, high, targetname="test.avi")
-        print("analyze")
+        self.extractClip()
 
-    def exit(self):
+    def extractClip(self):
+        beginning = float(self.rangeSlider.low()) / float(1000)
+        end = float(self.rangeSlider.high()) / float(1000)
+        target = self.fileName[:-4] + "[SUBCLIP].avi"
+        ffmpeg_extract_subclip(self.fileName, beginning, end, targetname=target)
+
+    @staticmethod
+    def exit():
         app.exit()
 
     def playPause(self):

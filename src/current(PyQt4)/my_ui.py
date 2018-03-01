@@ -70,14 +70,14 @@ class Ui_MainWindow(object):
         self.seekSlider.setIconSize(QtCore.QSize(16, 16))
         self.seekSlider.setObjectName(_fromUtf8("seekSlider"))
         self.horizontalLayout_2.addWidget(self.seekSlider)
+        self.seekSlider.show()
 
         # range slider
-        self.rangeSlider = RangeSlider(self.seekSlider, Qt.Qt.Horizontal)
+        self.rangeSlider = RangeSlider(Qt.Qt.Horizontal)
         self.rangeSlider.setTickPosition(QtGui.QSlider.TicksBelow)
         self.rangeSlider.setTickInterval(1)
         self.horizontalLayout_2.addWidget(self.rangeSlider)
         self.rangeSlider.hide()
-        self.rangeSlider.seekSlider.show()
 
         # analyze button
         self.analyzeButton = QtGui.QPushButton("Analyze", self)
