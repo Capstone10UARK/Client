@@ -3,8 +3,10 @@ from PyQt4.QtCore import QPoint, QRect, QSize, Qt
 from PyQt4.phonon import Phonon
 from PyQt4 import QtCore
 from my_ui import Ui_MainWindow
-from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
 
+import imageio
+imageio.plugins.ffmpeg.download()
+from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
 
 class MyMainUi(QMainWindow, Ui_MainWindow, QLabel):
 
@@ -142,6 +144,8 @@ class MyMainUi(QMainWindow, Ui_MainWindow, QLabel):
 
     def stop(self):
         self.mediaObject.stop()
+        self.mediaObject.play()
+        self.mediaObject.pause()
 
     @staticmethod
     def exit():
